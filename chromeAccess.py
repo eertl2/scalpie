@@ -1,8 +1,6 @@
 from selenium import webdriver as wd
 import time
-import chromedriver_binary
-
-#Adds just dance to cart on bestbuy
+import chromedriver_binary # type: ignore
 
 wd = wd.Chrome()
 wd.implicitly_wait(10) 
@@ -44,6 +42,11 @@ while running:
         #Clicks the add-cart button
         cartbutton.click()
         print("Clicking the add-to-cart button")
+
+        #Needs to wait in queue until we are able to add-to-cart if we get a popup
+        #if(cartbutton.get_attribute(""))
+
+            #Must click the button as it becomes available
 
         #Clicks the go-to-cart button
         cartbutton = wd.find_element_by_class_name("c-button-block")
