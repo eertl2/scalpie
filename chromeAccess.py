@@ -5,12 +5,12 @@ import chromedriver_binary
 #Adds just dance to cart on bestbuy
 
 wd = wd.Chrome()
-wd.implicitly_wait(10)
+wd.implicitly_wait(10) 
 
 wd.get("https://www.bestbuy.com/site/sony-playstation-5-console/6426149.p?skuId=6426149")
 
 running = True
-success = False
+#success = False
 
 while running:
     try:
