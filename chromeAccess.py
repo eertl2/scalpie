@@ -2,25 +2,41 @@ from selenium import webdriver as wd
 import time
 import chromedriver_binary # type: ignore
 
+lines = []
+userdata = []
+with open('user-details.txt') as f:
+    lines = f.readlines()
+
+count = 0
+for line in lines:
+    linestr = line.split('=')
+    userdata.append(linestr[1])
+    count += 1
+
+#User-details
+username = userdata[0]
+password = userdata[1]
+firstname = userdata[2]
+lastname = userdata[3]
+address = userdata[4]
+city = userdata[5]
+state = userdata[6]
+zipcode = userdata[7]
+card = userdata[8]
+expmonth = userdata[9]
+expyear = userdata[10]
+cvv = userdata[11]
+
+#count = 0
+#for p in userdata:
+#    print(f'line {count}: {p}')
+#    count += 1
+
 wd = wd.Chrome()
 wd.implicitly_wait(10) 
 
 #wd.get("https://www.bestbuy.com/site/sony-playstation-5-console/6426149.p?skuId=6426149") #ps5
 wd.get("https://www.bestbuy.com/site/happiness-is-a-warm-blanket-charlie-brown-dvd-2011/2095286.p?skuId=2095286") #test-item (in-stock)
-
-#User-details
-username = "superdreaddragon@gmail.com"
-password = "YuQMCfe-4is3!KB"
-firstname = "Eric"
-lastname = "Ertl"
-address = "N42W22630 Cabot Ct"
-city = "Pewaukee"
-state = "WI"
-zipcode = "53072"
-card = "5482283375750932"
-expmonth = "03"
-expyear = "2023"
-cvv = "003"
 
 running = True
 #success = False
