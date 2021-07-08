@@ -1,0 +1,2 @@
+printToConsole = True
+printToLogs = True
