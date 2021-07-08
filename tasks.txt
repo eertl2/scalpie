@@ -1,0 +1,7 @@
+-Move current chromeAccess.py into a bestbuy.py and create a 'main' class
+-Include additonal websites
+    -Amazon
+    -Nvidia
+    -Gamestop (I think you might need to be a part of their club
+-Paste entire HTML from website into logs on a fail
+-Check for multiple items (Each item has its own webpage open)
