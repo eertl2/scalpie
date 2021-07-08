@@ -1,1 +1,2 @@
-debug = True
+printToConsole = True
+printToLogs = True
