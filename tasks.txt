@@ -1,7 +1,22 @@
--Move current chromeAccess.py into a bestbuy.py and create a 'main' class
--Include additonal websites
-    -Amazon
-    -Nvidia
-    -Gamestop (I think you might need to be a part of their club
--Paste entire HTML from website into logs on a fail
--Check for multiple items (Each item has its own webpage open)
+Bugs:
+    -Bestbuy randomly selects people to do surveys, this crashes the code
+    -Sometimes fails to click on element
+    -Makes two log files, first one has nothing in it
+    
+dbg.py:
+    -Logs should display thread next to timestamp to differentiate between threads
+    -Paste entire HTML from website into logs on a fail
+
+main.py:
+    -Communication between worker threads to ensure only X amt of an item is bought
+    -Check for multiple items (Each item has its own webpage open)
+
+bestbuy.py:
+    -Attempt to refresh the page and try again on fails
+
+Other:
+    -Include additonal websites
+        -Amazon
+        -Nvidia
+        -Gamestop (I think you might need to be a part of their club
+        -(any website that sells gpus/ps5s/etc
