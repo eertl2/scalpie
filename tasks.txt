@@ -12,6 +12,7 @@ main.py:
     -Check for multiple items (Each item has its own webpage open)
 
 bestbuy.py:
+    -break code into chunks
     -Attempt to refresh the page and try again on fails
 
 Other:
