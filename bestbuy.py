@@ -53,10 +53,9 @@ class bestbuy:
         self.expyear = userdata[10]
         self.cvv = userdata[11]
     
-    def purchase(self):
-        self.driver.get("https://www.bestbuy.com/site/happiness-is-a-warm-blanket-charlie-brown-dvd-2011/2095286.p?skuId=2095286")
+    def purchase(self, link):
+        self.driver.get(link)
         
-
         running = True
         while running:
             self.dbgr.debug("Starting Program")

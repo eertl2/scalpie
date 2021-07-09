@@ -14,7 +14,7 @@ class dbgr:
             if not os.path.exists("logs/" + fdrname):
                 os.makedirs("logs/" + fdrname)
             flename = datetime.now().strftime("%H_%M_%S")
-            self.f = open("logs/" + fdrname + "/" + flename,"a")
+            self.f = open("logs/" + fdrname + "/" + flename + ".txt","a")
 
     def debug(self, arg1):
         if glv.printToConsole:
