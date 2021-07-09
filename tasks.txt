@@ -3,11 +3,11 @@ Bugs:
     -Sometimes fails to click on element
     
 dbg.py:
-    -Logs should display thread next to timestamp to differentiate between threads
-    -Paste entire HTML from website into logs on a fail
+    -Paste entire HTML from website into folder on fail
 
 main.py:
     -Communication between worker threads to ensure only X amt of an item is bought
+        -https://pymotw.com/2/threading/
     -Check for multiple items (Each item has its own webpage open)
 
 bestbuy.py:
