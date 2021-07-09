@@ -1,7 +1,6 @@
 Bugs:
     -Bestbuy randomly selects people to do surveys, this crashes the code
     -Sometimes fails to click on element
-    -Makes two log files, first one has nothing in it
     
 dbg.py:
     -Logs should display thread next to timestamp to differentiate between threads
