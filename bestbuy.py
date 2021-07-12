@@ -165,32 +165,32 @@ class bestbuy:
         self.dbgr.debug("---Shipping Info:")
         #Enters Firstname
         self.dbgr.debug("Entering Firstname")
-        current_button = self.driver.find_element_by_id("consolidatedAddresses.ui_address_1153.firstName")
+        current_button = self.driver.find_element_by_css_selector('input[id$=firstName]')
         current_button.send_keys(self.firstname)
         
         #Enters Lastname
         self.dbgr.debug("Entering Lastname")
-        current_button = self.driver.find_element_by_id("consolidatedAddresses.ui_address_1153.lastName")
+        current_button = self.driver.find_element_by_css_selector('input[id$=lastName]')
         current_button.send_keys(self.lastname)
         
         #Enters Address
         self.dbgr.debug("Entering Address")
-        current_button = self.driver.find_element_by_id("consolidatedAddresses.ui_address_1153.street")
+        current_button = self.driver.find_element_by_css_selector('input[id$=street]')
         current_button.send_keys(self.address)
         
         #Enters City
         self.dbgr.debug("Entering City")
-        current_button = self.driver.find_element_by_id("consolidatedAddresses.ui_address_1153.city")
+        current_button = self.driver.find_element_by_css_selector('input[id$=city]')
         current_button.send_keys(self.city)
         
         #Enters State
         self.dbgr.debug("Entering State")
-        current_button = self.driver.find_element_by_id("consolidatedAddresses.ui_address_1153.state")
+        current_button = self.driver.find_element_by_name("state") #wont find with css for some reason
         current_button.send_keys(self.state)
         
         #Enters Zipcode
         self.dbgr.debug("Entering Zipcode")
-        current_button = self.driver.find_element_by_id("consolidatedAddresses.ui_address_1153.zipcode")
+        current_button = self.driver.find_element_by_css_selector('input[id$=zipcode]')
         current_button.send_keys(self.zipcode)
         
         #Clicks 'Continue to Payment Information'
