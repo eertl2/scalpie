@@ -63,8 +63,11 @@ class bestbuy:
                 #add to cart
                 self.attempt(self.addToCart)
 
-                #checkout()
+                #checkout
                 self.attempt(self.checkout)
+
+                #Login
+                self.attempt(self.login)
 
                 #Enter Shipping Info
                 self.attempt(self.shippingInfo)
@@ -76,6 +79,7 @@ class bestbuy:
                 break
             except:
                 self.dbgr.debug("Program failed: " + traceback.format_exc())
+                self.dbgr.crash(self.driver.page_source)
                 self.driver.close
                 break
 
@@ -138,10 +142,10 @@ class bestbuy:
 
         #check for next elenement before continuing
 
-    def shippingInfo(self):
-        self.dbgr.debug("---Shipping Info:")
+    def login(self):
+        self.dbgr.debug("---Login:")
         #Enter Username 
-        self.dbgr.debug("Entering Username")
+        self.dbgr.debug("Entering Email Address")
         current_button = self.driver.find_element_by_id("fld-e")
         current_button.send_keys(self.username)
 
@@ -155,6 +159,9 @@ class bestbuy:
         current_button = self.driver.find_element_by_class_name("cia-form__controls__submit")
         current_button.click()
 
+
+    def shippingInfo(self):
+        self.dbgr.debug("---Shipping Info:")
         #Enters Firstname
         self.dbgr.debug("Entering Firstname")
         current_button = self.driver.find_element_by_id("consolidatedAddresses.ui_address_1153.firstName")
