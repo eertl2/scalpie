@@ -106,6 +106,7 @@ class bestbuy:
 
         while(current_button.get_attribute("data-button-state")) == "SOLD_OUT":
             self.dbgr.debug("item is sold out, retrying in 10")
+            time.sleep(10)
             continue
         
         #Clicks the add-cart button
