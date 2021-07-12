@@ -19,6 +19,8 @@ bestbuy.py:
     -Stop popups
 
 Other:
+    -Attempt to hide our webscraper
+        https://pknerd.medium.com/5-strategies-to-write-unblock-able-web-scrapers-in-python-5e40c147bdaf
     -Include additonal websites
         -Amazon
         -Nvidia
