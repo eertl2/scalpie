@@ -10,7 +10,7 @@ class dbgr:
     def __init__(self):
         if not os.path.exists('logs'):
             os.makedirs('logs')
-        if(glv.printToLogs):
+        if(glv.PRINT_TO_LOGS):
             fdrname = date.today().strftime("%d_%m_%Y")
             if not os.path.exists("logs/" + fdrname):
                 os.makedirs("logs/" + fdrname)
@@ -22,9 +22,9 @@ class dbgr:
         datestamp = datetime.now().strftime("[%H:%M:%S] ") #add date to debug
         arg1 = threadid + datestamp + arg1
 
-        if glv.printToConsole:
+        if glv.PRINT_TO_LOGS:
             print(arg1)
-        if glv.printToLogs:
+        if glv.PRINT_TO_LOGS:
             self.log(arg1)
         return
 

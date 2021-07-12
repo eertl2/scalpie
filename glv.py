@@ -1,2 +1,3 @@
-printToConsole = True
-printToLogs = True
+PRINT_TO_CONSOLE = True
+PRINT_TO_LOGS = True
+MAX_RETRYS_PER_TASK = 1
