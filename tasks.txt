@@ -1,9 +1,6 @@
 Bugs:
     -Bestbuy randomly selects people to do surveys, this crashes the code
-    -Sometimes fails to click on element
-    
-dbg.py:
-    -Paste entire HTML from website into folder on fail
+    -Sometimes fails to click on element (hasn't happened in awhile)
 
 main.py:
     -Communication between worker threads to ensure only X amt of an item is bought
@@ -12,11 +9,9 @@ main.py:
     -Run program in background?
 
 bestbuy.py:
-    -break code into chunks
-    -Attempt to refresh the page and try again on fails
     -When finding an element by ID, the last 4 numbers have changed
         -https://www.tutorialspoint.com/how-to-locate-element-by-partial-id-match-in-selenium
-    -Stop popups
+    -Stop popups (sometimes an additional webpage opens, seems to be clicking on some address element...)
 
 Other:
     -Attempt to hide our webscraper
@@ -26,3 +21,7 @@ Other:
         -Nvidia
         -Gamestop (I think you might need to be a part of their club)
         -(any website that sells gpus/ps5s/etc
+
+If we somehow actually get it working:
+    -CLI 
+    -GUI
