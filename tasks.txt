@@ -21,7 +21,5 @@ Other:
         -Nvidia
         -Gamestop (I think you might need to be a part of their club)
         -(any website that sells gpus/ps5s/etc
-
-If we somehow actually get it working:
     -CLI 
     -GUI
