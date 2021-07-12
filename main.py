@@ -4,7 +4,7 @@ import glv
 import dbg
 from worker import worker
 import threading
-import chromedriver_binary # type: ignore
+import chromedriver_binary
 
 #Item list
 #wd.get("https://www.bestbuy.com/site/sony-playstation-5-console/6426149.p?skuId=6426149") #ps5
