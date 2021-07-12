@@ -136,6 +136,7 @@ class bestbuy:
 
     def checkout(self):
         self.dbgr.debug("---Checkout:")
+
         #Clicks the checkout button
         self.dbgr.debug("Clicking 'Checkout'")
         current_button = self.driver.find_element_by_class_name("btn-primary")
@@ -145,6 +146,7 @@ class bestbuy:
 
     def login(self):
         self.dbgr.debug("---Login:")
+
         #Enter Username 
         self.dbgr.debug("Entering Email Address")
         current_button = self.driver.find_element_by_id("fld-e")
@@ -202,6 +204,7 @@ class bestbuy:
 
     def paymentInfo(self):
         self.dbgr.debug("---Payment Info:")
+        
         #Enter Credit Card information
         self.dbgr.debug("Entering Card Number")
         current_button = self.driver.find_element_by_id("optimized-cc-card-number")
