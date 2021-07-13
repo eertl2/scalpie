@@ -4,6 +4,9 @@ import glv
 import dbg
 import time
 import traceback
+import random
+import purchasing
+
 import chromedriver_binary
 
 class bestbuy:
@@ -74,14 +77,18 @@ class bestbuy:
 
                 #Enter Payment Info
                 self.attempt(self.paymentInfo)
-                
+
+                #Purchase
+                if(self.purchase):
+                    self.driver.close
+                    return True
                 self.driver.close
-                break
+                return False
             except:
                 self.dbgr.debug("Program failed: " + traceback.format_exc())
                 self.dbgr.crash(self.driver.page_source)
                 self.driver.close
-                break
+                return False
 
     def attempt(self, func):
         running = True
@@ -106,7 +113,8 @@ class bestbuy:
 
         while(current_button.get_attribute("data-button-state")) == "SOLD_OUT":
             self.dbgr.debug("item is sold out, retrying in 10")
-            time.sleep(10)
+            time.sleep(random.randint(glv.MIN_REFRESH_TIME,glv.MAX_REFRESH_TIME))
+            self.driver.refresh
             continue
         
         #Clicks the add-cart button
@@ -224,11 +232,27 @@ class bestbuy:
         self.dbgr.debug("Entering CCV")
         current_button = self.driver.find_element_by_id("credit-card-cvv")
         current_button.send_keys(self.cvv)
+
+        #check for next element before continuing
+    
+    def purchase(self):
+        purchaseCode = purchasing.aquirePurchasePerm()
+        while(purchaseCode == 0):
+            self.dbgr.debug("Waiting for purchasing permission")
+            time.sleep(5)
+            purchaseCode = purchasing.aquirePurchasePerm()
+
+        if(purchaseCode == -1):
+            self.dbgr.debug("Max quanity of product already purchased.")
+            return False
         
         #place order
         self.dbgr.debug("Clicking 'Purchase'")
         current_button = self.driver.find_element_by_class_name("btn-primary")
         current_button.click()
 
-        #check for next elenement before continuing
+        #TODO check for success/failure. return True on success, False for failure
+        self.dbgr.debug("Purchase successful.")
+        return True
         
+
