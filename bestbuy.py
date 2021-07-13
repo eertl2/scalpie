@@ -1,5 +1,4 @@
 from selenium import webdriver as wd
-from selenium.webdriver.support import expected_conditions as EC
 import glv
 import dbg
 import time
@@ -25,7 +24,7 @@ class bestbuy:
     driver = None
     dbgr = None
 
-    def __init__(self):
+    def __init__(self, lock):
         self.driver = wd.Chrome()
         self.driver.implicitly_wait(5)
         self.dbgr = dbg.dbgr()
@@ -78,12 +77,13 @@ class bestbuy:
                 #Enter Payment Info
                 self.attempt(self.paymentInfo)
 
-                #Purchase
-                if(self.buyItem()):
-                    self.driver.close
-                    return True
-                self.driver.close
-                return False
+                # #Purchase
+                # if(self.buyItem()):
+                #     self.driver.close
+                #     return True
+                # self.driver.close
+
+                return True
             except:
                 self.dbgr.debug("Program failed: " + traceback.format_exc())
                 self.dbgr.crash(self.driver.page_source)
@@ -235,18 +235,7 @@ class bestbuy:
 
         #check for next element before continuing
     
-    def buyItem(self):
-        self.dbgr.debug("Getting purchase permissions")
-        purchaseCode = purchasing.acquirePurchasePerm()
-        while(purchaseCode == 0):
-            self.dbgr.debug("Waiting for buying permission")
-            time.sleep(5)
-            purchaseCode = purchasing.acquirePurchasePerm()
-
-        if(purchaseCode == -1):
-            self.dbgr.debug("Max quanity of product has already been bought")
-            return False
-        
+    def buyItem(self):        
         #place order
         self.dbgr.debug("Clicking 'Purchase'")
         current_button = self.driver.find_element_by_class_name("btn-primary")
