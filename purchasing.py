@@ -9,7 +9,7 @@ class purchasing:
     dbgr = dbg.dbgr()
     
     @staticmethod
-    def aquirePurchasePerm():
+    def acquirePurchasePerm():
         purchasing.lock.acquire()
         if(purchasing.activePurchasers + purchasing.purchased) < glv.QUANITY:
             purchasing.activePurchasers += 1

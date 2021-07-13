@@ -236,11 +236,11 @@ class bestbuy:
         #check for next element before continuing
     
     def buyItem(self):
-        purchaseCode = purchasing.aquirePurchasePerm()
+        purchaseCode = purchasing.acquirePurchasePerm()
         while(purchaseCode == 0):
             self.dbgr.debug("Waiting for buying permission")
             time.sleep(5)
-            purchaseCode = purchasing.aquirePurchasePerm()
+            purchaseCode = purchasing.acquirePurchasePerm()
 
         if(purchaseCode == -1):
             self.dbgr.debug("Max quanity of product has already been bought")
