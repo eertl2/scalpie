@@ -1,5 +1,5 @@
 import bestbuy
-import purchasing
+from purchasing import purchasing
 
 class worker:
     def __init__(self, place, item):
@@ -7,4 +7,4 @@ class worker:
             bb = bestbuy.bestbuy()
             if(bb.purchase(item)):
                 purchasing.purchased += 1
-        return
+                return

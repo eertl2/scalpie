@@ -3,17 +3,24 @@ Bugs:
     -Sometimes fails to click on element (hasn't happened in awhile)
 
 main.py:
-    -Communication between worker threads to ensure only X amt of an item is bought
-        -https://pymotw.com/2/threading/
     -Check for multiple items (Each item has its own webpage open)
     -Run program in background?
+
+dbg.py:
+    -Make debugger static
 
 bestbuy.py:
     -Stop popups (sometimes an additional webpage opens, seems to be clicking on some address element...)
         -Loop through open processes after known problem comes up and close process?
     -Detailed fail message for which step was failed
+        -Refactor the attempt method maybe? I made it to make code more consise but perhaps its not worth
+    -Check for success
 
 Other:
+    -Implement multiprocessing?
+        -Python's glv prevents multiple threads from running at the same time, making code much slower than it needs to be
+        -Did implement communication between worker threads but the calls relating to threading.lock are worthless (i think) due to pythons GIL
+            -Code would be worth if we could get multiprocessing working
     -Attempt to hide our webscraper (HUGE TASK but probably very important)
         https://pknerd.medium.com/5-strategies-to-write-unblock-able-web-scrapers-in-python-5e40c147bdaf
     -Include additonal websites

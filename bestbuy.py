@@ -5,7 +5,7 @@ import dbg
 import time
 import traceback
 import random
-import purchasing
+from purchasing import purchasing
 
 import chromedriver_binary
 
@@ -27,7 +27,7 @@ class bestbuy:
 
     def __init__(self):
         self.driver = wd.Chrome()
-        self.driver.implicitly_wait(15)
+        self.driver.implicitly_wait(5)
         self.dbgr = dbg.dbgr()
 
         #Parse user-details.txt
@@ -79,7 +79,7 @@ class bestbuy:
                 self.attempt(self.paymentInfo)
 
                 #Purchase
-                if(self.purchase):
+                if(self.buyItem()):
                     self.driver.close
                     return True
                 self.driver.close
@@ -235,15 +235,15 @@ class bestbuy:
 
         #check for next element before continuing
     
-    def purchase(self):
+    def buyItem(self):
         purchaseCode = purchasing.aquirePurchasePerm()
         while(purchaseCode == 0):
-            self.dbgr.debug("Waiting for purchasing permission")
+            self.dbgr.debug("Waiting for buying permission")
             time.sleep(5)
             purchaseCode = purchasing.aquirePurchasePerm()
 
         if(purchaseCode == -1):
-            self.dbgr.debug("Max quanity of product already purchased.")
+            self.dbgr.debug("Max quanity of product has already been bought")
             return False
         
         #place order
