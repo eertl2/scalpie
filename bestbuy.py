@@ -252,6 +252,7 @@ class bestbuy:
         current_button.click()
 
         #TODO check for success/failure. return True on success, False for failure
+        purchasing.purchaseSuccess()
         self.dbgr.debug("Purchase successful.")
         return True
         
