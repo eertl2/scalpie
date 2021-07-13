@@ -1,6 +1,6 @@
 from selenium import webdriver as wd
 from worker import worker
-from threading import Lock
+import glv
 import threading
 import chromedriver_binary
 
