@@ -3,7 +3,8 @@ Bugs:
     -Sometimes fails to click on element (hasn't happened in awhile)
 
 main.py:
-    -Check for multiple items (Each item has its own webpage open)
+    -Check for multiple items
+        -Check for multiple items, fire off a bestbuy.py object right before it goes in-stock (we know this because it says 'please wait...' on the item instead of 'Sold Out')
     -Run program in background?
 
 dbg.py:
