@@ -1,8 +1,4 @@
 from selenium import webdriver as wd
-#from selenium.webdriver.support import expected_conditions as EC
-#import glv
-#import dbg
-#from threading import Lock
 from worker import worker
 from threading import Lock
 import threading
