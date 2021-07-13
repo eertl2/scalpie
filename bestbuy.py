@@ -236,6 +236,7 @@ class bestbuy:
         #check for next element before continuing
     
     def buyItem(self):
+        self.dbgr.debug("Getting purchase permissions")
         purchaseCode = purchasing.acquirePurchasePerm()
         while(purchaseCode == 0):
             self.dbgr.debug("Waiting for buying permission")
