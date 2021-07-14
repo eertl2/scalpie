@@ -79,18 +79,10 @@ class bestbuy:
                 #Enter Payment Info
                 self.attempt(self.paymentInfo)
 
-                # #Purchase
-                # if(self.buyItem()):
-                #     self.driver.close
-                #     return True
-                #self.driver.close
-
-                return True
             except:
                 dbg.debug("Program failed: " + traceback.format_exc())
                 dbg.crash(self.driver.page_source)
                 self.driver.close
-                return False
 
     def attempt(self, func):
         running = True
@@ -261,7 +253,9 @@ class bestbuy:
         current_button.click()
 
         #TODO check for success/failure. return True on success, False for failure
-        dbg.debug("Purchase successful.")
         return True
+
+    def close(self):
+        self.driver.close
         
 
