@@ -4,9 +4,10 @@ import dbg
 import time
 import traceback
 import random
-from purchasing import purchasing
 
 import chromedriver_binary
+
+dbg = dbg.dbgr()
 
 class bestbuy:
     username = None
@@ -28,7 +29,6 @@ class bestbuy:
     def __init__(self):
         self.driver = wd.Chrome()
         self.driver.implicitly_wait(5)
-        self.dbgr = dbg.dbgr()
 
         #Parse user-details.txt
         lines = []
@@ -62,7 +62,7 @@ class bestbuy:
         
         running = True
         while running:
-            self.dbgr.debug("Starting Program")
+            dbg.debug("Starting Program")
             try:
                 #add to cart
                 self.attempt(self.addToCart)
@@ -83,12 +83,12 @@ class bestbuy:
                 # if(self.buyItem()):
                 #     self.driver.close
                 #     return True
-                self.driver.close
+                #self.driver.close
 
                 return True
             except:
-                self.dbgr.debug("Program failed: " + traceback.format_exc())
-                self.dbgr.crash(self.driver.page_source)
+                dbg.debug("Program failed: " + traceback.format_exc())
+                dbg.crash(self.driver.page_source)
                 self.driver.close
                 return False
 
@@ -104,23 +104,23 @@ class bestbuy:
                 if(curAttempt > glv.MAX_RETRYS_PER_TASK):
                     raise
                 else:
-                    self.dbgr.debug("Current task failed, refreshing and retrying")
+                    dbg.debug("Current task failed, refreshing and retrying")
                     self.driver.refresh()
     
     def addToCart(self):
-        self.dbgr.debug("---Adding To Cart:")
+        dbg.debug("---Adding To Cart:")
 
         current_button = self.driver.find_element_by_class_name("add-to-cart-button")
-        self.dbgr.debug("Found add-to-cart button")
+        dbg.debug("Found add-to-cart button")
 
         while(current_button.get_attribute("data-button-state")) == "SOLD_OUT":
-            self.dbgr.debug("item is sold out, retrying in 10")
+            dbg.debug("item is sold out, retrying in 10")
             time.sleep(random.randint(glv.MIN_REFRESH_TIME,glv.MAX_REFRESH_TIME))
             self.driver.refresh
             continue
         
         #Clicks the add-cart button
-        #self.dbgr.debug("Clicking the add-to-cart button")
+        #dbg.debug("Clicking the add-to-cart button")
         #current_button.click()
 
         #Needs to wait in queue until we are able to add-to-cart if we get a popup
@@ -128,27 +128,27 @@ class bestbuy:
         seconds = 0
         while(inqueue):
             if(current_button.get_attribute("data-button-state")) != "ADD_TO_CART":
-                self.dbgr.debug("Waiting in queue for {seconds} seconds")
+                dbg.debug("Waiting in queue for {seconds} seconds")
                 time.sleep(0.5)
                 seconds += 0.5
             else:
                 #Clicks the add-cart button
                 current_button.click()
-                self.dbgr.debug("Attempting to add to cart")
+                dbg.debug("Attempting to add to cart")
                 inqueue = False
 
         #Clicks the go-to-cart button
-        self.dbgr.debug("Clicking 'Go To Cart'")
+        dbg.debug("Clicking 'Go To Cart'")
         current_button = self.driver.find_element_by_class_name("c-button-block")
         current_button.click()
 
         #check for next elenement before continuing
 
     def checkout(self):
-        self.dbgr.debug("---Checkout:")
+        dbg.debug("---Checkout:")
 
         #Clicks the checkout button
-        self.dbgr.debug("Clicking 'Checkout'")
+        dbg.debug("Clicking 'Checkout'")
         current_button = self.driver.find_element_by_class_name("btn-primary")
         current_button.click()
 
@@ -156,99 +156,99 @@ class bestbuy:
 
     def login(self):
         if glv.GUEST:
-            self.dbgr.debug("---Login: (as guest)")
+            dbg.debug("---Login: (as guest)")
 
             #Clicks login
-            self.dbgr.debug("Clicking the 'login as guest' button")
+            dbg.debug("Clicking the 'login as guest' button")
             current_button = self.driver.find_element_by_class_name("cia-guest-content__continue")
             current_button.click()
         else:
-            self.dbgr.debug("---Login: (as user)")
+            dbg.debug("---Login: (as user)")
 
             #Enter Username 
-            self.dbgr.debug("Entering Email Address")
+            dbg.debug("Entering Email Address")
             current_button = self.driver.find_element_by_id("fld-e")
             current_button.send_keys(self.username)
 
             #Enter Password
-            self.dbgr.debug("Entering Password")
+            dbg.debug("Entering Password")
             current_button = self.driver.find_element_by_id("fld-p1")
             current_button.send_keys(self.password)
 
             #Clicks login
-            self.dbgr.debug("Clicking the login button")
+            dbg.debug("Clicking the login button")
             current_button = self.driver.find_element_by_class_name("cia-form__controls__submit")
             current_button.click()
 
 
     def shippingInfo(self):
-        self.dbgr.debug("---Shipping Info:")
+        dbg.debug("---Shipping Info:")
         #Enters Firstname
-        self.dbgr.debug("Entering Firstname")
+        dbg.debug("Entering Firstname")
         current_button = self.driver.find_element_by_css_selector('input[id$=firstName]')
         current_button.send_keys(self.firstname)
         
         #Enters Lastname
-        self.dbgr.debug("Entering Lastname")
+        dbg.debug("Entering Lastname")
         current_button = self.driver.find_element_by_css_selector('input[id$=lastName]')
         current_button.send_keys(self.lastname)
         
         #Enters Address
-        self.dbgr.debug("Entering Address")
+        dbg.debug("Entering Address")
         current_button = self.driver.find_element_by_css_selector('input[id$=street]')
         current_button.send_keys(self.address)
         
         #Enters City
-        self.dbgr.debug("Entering City")
+        dbg.debug("Entering City")
         current_button = self.driver.find_element_by_css_selector('input[id$=city]')
         current_button.send_keys(self.city)
         
         #Enters State
-        self.dbgr.debug("Entering State")
+        dbg.debug("Entering State")
         current_button = self.driver.find_element_by_name("state") #wont find with css for some reason
         current_button.send_keys(self.state)
         
         #Enters Zipcode
-        self.dbgr.debug("Entering Zipcode")
+        dbg.debug("Entering Zipcode")
         current_button = self.driver.find_element_by_css_selector('input[id$=zipcode]')
         current_button.send_keys(self.zipcode)
 
         if glv.GUEST:
-            self.dbgr.debug("Entering Email")
+            dbg.debug("Entering Email")
             current_button = self.driver.find_element_by_id("user.emailAddress")
             current_button.send_keys(self.username)
 
-            self.dbgr.debug("Entering Phone Number")
+            dbg.debug("Entering Phone Number")
             current_button = self.driver.find_element_by_id("user.phone")
             current_button.send_keys(self.pn)
         
         #Clicks 'Continue to Payment Information'
-        self.dbgr.debug("Clicking 'Continue to Payment Information'")
+        dbg.debug("Clicking 'Continue to Payment Information'")
         current_button = self.driver.find_element_by_class_name("btn-secondary")
         current_button.click()
 
         #check for next elenement before continuing
 
     def paymentInfo(self):
-        self.dbgr.debug("---Payment Info:")
+        dbg.debug("---Payment Info:")
         
         #Enter Credit Card information
-        self.dbgr.debug("Entering Card Number")
+        dbg.debug("Entering Card Number")
         current_button = self.driver.find_element_by_id("optimized-cc-card-number")
         current_button.send_keys(self.card)
         
         #Enter Month
-        self.dbgr.debug("Entering Month")
+        dbg.debug("Entering Month")
         current_button = self.driver.find_element_by_name("expiration-month")
         current_button.send_keys(self.expmonth)
         
         #Enter Year
-        self.dbgr.debug("Entering Year")
+        dbg.debug("Entering Year")
         current_button = self.driver.find_element_by_name("expiration-year")
         current_button.send_keys(self.expyear)
         
         #Enter CCV
-        self.dbgr.debug("Entering CCV")
+        dbg.debug("Entering CCV")
         current_button = self.driver.find_element_by_id("credit-card-cvv")
         current_button.send_keys(self.cvv)
 
@@ -256,13 +256,12 @@ class bestbuy:
     
     def buyItem(self):        
         #place order
-        self.dbgr.debug("Clicking 'Purchase'")
+        dbg.debug("Clicking 'Purchase'")
         current_button = self.driver.find_element_by_class_name("btn-primary")
         current_button.click()
 
         #TODO check for success/failure. return True on success, False for failure
-        purchasing.purchaseSuccess()
-        self.dbgr.debug("Purchase successful.")
+        dbg.debug("Purchase successful.")
         return True
         
 

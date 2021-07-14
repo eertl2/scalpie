@@ -3,7 +3,7 @@ from worker import worker
 import glv
 from multiprocessing import Manager
 from concurrent.futures import ProcessPoolExecutor as pool
-import chromedriver_binary
+import chromedriver_binary # type: ignore
 
 if __name__ == "__main__":
     m = Manager()
@@ -13,7 +13,7 @@ if __name__ == "__main__":
     purchased = m.Value('i', 0)
 
     with pool() as executor:
-        results = [executor.submit(worker, "bestbuy", glv.ITEM, lock, activeP, purchased) for _ in range(1)]
+        results = [executor.submit(worker, "bestbuy", glv.ITEM, lock, activeP, purchased) for _ in range(2)]
 
     for f in results:
         print(f)
