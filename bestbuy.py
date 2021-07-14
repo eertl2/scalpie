@@ -21,10 +21,11 @@ class bestbuy:
     expmonth = None
     expyear = None
     cvv = None
+    pn = None
     driver = None
     dbgr = None
 
-    def __init__(self, lock):
+    def __init__(self):
         self.driver = wd.Chrome()
         self.driver.implicitly_wait(5)
         self.dbgr = dbg.dbgr()
@@ -54,6 +55,7 @@ class bestbuy:
         self.expmonth = userdata[9]
         self.expyear = userdata[10]
         self.cvv = userdata[11]
+        self.pn = userdata[12]
     
     def purchase(self, link):
         self.driver.get(link)
@@ -81,7 +83,7 @@ class bestbuy:
                 # if(self.buyItem()):
                 #     self.driver.close
                 #     return True
-                # self.driver.close
+                self.driver.close
 
                 return True
             except:
@@ -153,22 +155,30 @@ class bestbuy:
         #check for next elenement before continuing
 
     def login(self):
-        self.dbgr.debug("---Login:")
+        if glv.GUEST:
+            self.dbgr.debug("---Login: (as guest)")
 
-        #Enter Username 
-        self.dbgr.debug("Entering Email Address")
-        current_button = self.driver.find_element_by_id("fld-e")
-        current_button.send_keys(self.username)
+            #Clicks login
+            self.dbgr.debug("Clicking the 'login as guest' button")
+            current_button = self.driver.find_element_by_class_name("cia-guest-content__continue")
+            current_button.click()
+        else:
+            self.dbgr.debug("---Login: (as user)")
 
-        #Enter Password
-        self.dbgr.debug("Entering Password")
-        current_button = self.driver.find_element_by_id("fld-p1")
-        current_button.send_keys(self.password)
+            #Enter Username 
+            self.dbgr.debug("Entering Email Address")
+            current_button = self.driver.find_element_by_id("fld-e")
+            current_button.send_keys(self.username)
 
-        #Clicks login
-        self.dbgr.debug("Clicking the login button")
-        current_button = self.driver.find_element_by_class_name("cia-form__controls__submit")
-        current_button.click()
+            #Enter Password
+            self.dbgr.debug("Entering Password")
+            current_button = self.driver.find_element_by_id("fld-p1")
+            current_button.send_keys(self.password)
+
+            #Clicks login
+            self.dbgr.debug("Clicking the login button")
+            current_button = self.driver.find_element_by_class_name("cia-form__controls__submit")
+            current_button.click()
 
 
     def shippingInfo(self):
@@ -202,6 +212,15 @@ class bestbuy:
         self.dbgr.debug("Entering Zipcode")
         current_button = self.driver.find_element_by_css_selector('input[id$=zipcode]')
         current_button.send_keys(self.zipcode)
+
+        if glv.GUEST:
+            self.dbgr.debug("Entering Email")
+            current_button = self.driver.find_element_by_id("user.emailAddress")
+            current_button.send_keys(self.username)
+
+            self.dbgr.debug("Entering Phone Number")
+            current_button = self.driver.find_element_by_id("user.phone")
+            current_button.send_keys(self.pn)
         
         #Clicks 'Continue to Payment Information'
         self.dbgr.debug("Clicking 'Continue to Payment Information'")
