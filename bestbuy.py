@@ -60,29 +60,27 @@ class bestbuy:
     def purchase(self, link):
         self.driver.get(link)
         
-        running = True
-        while running:
-            dbg.debug("Starting Program")
-            try:
-                #add to cart
-                self.attempt(self.addToCart)
+        dbg.debug("Starting Program")
+        try:
+            #add to cart
+            self.attempt(self.addToCart)
 
-                #checkout
-                self.attempt(self.checkout)
+            #checkout
+            self.attempt(self.checkout)
 
-                #Login
-                self.attempt(self.login)
+            #Login
+            self.attempt(self.login)
 
-                #Enter Shipping Info
-                self.attempt(self.shippingInfo)
+            #Enter Shipping Info
+            self.attempt(self.shippingInfo)
 
-                #Enter Payment Info
-                self.attempt(self.paymentInfo)
+            #Enter Payment Info
+            self.attempt(self.paymentInfo)
 
-            except:
-                dbg.debug("Program failed: " + traceback.format_exc())
-                dbg.crash(self.driver.page_source)
-                self.driver.close
+        except:
+            dbg.debug("Program failed: " + traceback.format_exc())
+            dbg.crash(self.driver.page_source)
+            self.driver.close
 
     def attempt(self, func):
         running = True
