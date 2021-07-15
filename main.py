@@ -1,4 +1,3 @@
-from selenium import webdriver as wd
 from worker import worker
 import glv
 import dbg
