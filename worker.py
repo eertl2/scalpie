@@ -12,7 +12,7 @@ class worker:
             bb.purchase(item) #brings browser to the 'buy now' button, but program has to get permission first
             pcode = self.acquirePurchasePerm(lock, activeP, purchased)
             z = 0
-            while(pcode == 0):
+            while(pcode != 1):
                 dbg.debug("Waiting for buying permission")
                 z += 1
                 if z == 5:
@@ -27,7 +27,7 @@ class worker:
                 self.purchaseSuccess(lock, activeP, purchased)
                 dbg.debug("Purchase successful.")
             else:
-                self.purchaseFail(lock, activeP, purchased)
+                self.purchaseFail(lock, activeP)
                 dbg.debug("Purchase Failed.")
             bb.close()
 
@@ -45,6 +45,6 @@ class worker:
             activeP.value -= 1
             purchased.value += 1
 
-    def purchaseFail(self, lock, activeP, purchased):
+    def purchaseFail(self, lock, activeP):
         with lock:
             activeP.value -= 1
