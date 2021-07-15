@@ -37,6 +37,7 @@ class bestbuy(company):
             dbg.debug("Program failed: " + traceback.format_exc())
             dbg.crash(self.driver.page_source)
             self.driver.close
+            raise
 
     def attempt(self, func):
         running = True
@@ -66,8 +67,8 @@ class bestbuy(company):
             continue
         
         #Clicks the add-cart button
-        dbg.debug("Clicking the add-to-cart button")
-        current_button.click()
+        #dbg.debug("Clicking the add-to-cart button")
+        #current_button.click()
 
         #Needs to wait in queue until we are able to add-to-cart if we get a popup
         inqueue = True
