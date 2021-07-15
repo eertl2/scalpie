@@ -1,0 +1,14 @@
+####REMOVE THIS LINE AND RENAME THE FILE TO user-details.txt####
+username=
+password=
+firstname=
+lastname=
+address=
+city=
+state=
+zipcode=
+card=
+expmonth=
+expyear=
+cvv=
+phonenumber=
