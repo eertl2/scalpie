@@ -1,17 +1,29 @@
-from selenium import webdriver as wd
 from worker import worker
 import glv
-#from multiprocessing import pool
-import multiprocessing
-import chromedriver_binary
+import dbg
+from multiprocessing import Manager
+from concurrent.futures import ProcessPoolExecutor as pool
+import chromedriver_binary # type: ignore
+
+dbg = dbg.dbgr()
 
 if __name__ == "__main__":
-    p1 = multiprocessing.Process(target=worker, args = ("bestbuy", glv.ITEM))
-    p2 = multiprocessing.Process(target=worker, args = ("bestbuy", glv.ITEM))
-    p1.start()
-    p2.start()
-    p1.join()
-    p2.join()
+    m = Manager()
+    lock = m.Lock()
+
+    activeP = m.Value('i', 0)
+    purchased = m.Value('i', 0)
+
+    with pool() as executor:
+        results = [executor.submit(worker, "bestbuy", glv.ITEM, lock, activeP, purchased) for _ in range(3)]
+
+    for f in results:
+        print(f)
+
+    dbg.debug("Purchased:" + str(purchased.value))
+
+
+
 
     
    
