@@ -1,8 +1,9 @@
-from worker import worker
-import glv
-import dbg
 from multiprocessing import Manager
 from concurrent.futures import ProcessPoolExecutor as pool
+from worker import worker
+
+import glv
+import dbg
 import chromedriver_binary # type: ignore
 
 dbg = dbg.dbgr()
