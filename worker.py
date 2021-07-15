@@ -11,13 +11,8 @@ class worker:
             bb = bestbuy.bestbuy()     
             bb.purchase(item) #brings browser to the 'buy now' button, but program has to get permission first
             pcode = self.acquirePurchasePerm(lock, activeP, purchased)
-            z = 0
             while(pcode != 1):
                 dbg.debug("Waiting for buying permission")
-                z += 1
-                if z == 5:
-                    dbg.debug("timeout")
-                    return
                 time.sleep(5)
                 pcode = self.acquirePurchasePerm(lock, activeP, purchased)
                 if(pcode == -1):
