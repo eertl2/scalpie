@@ -38,7 +38,7 @@ class worker:
                 return 1
             if(purchased.value == glv.QUANITY):
                 return -1
-            return 0
+        return 0
     
     def purchaseSuccess(self, lock, activeP, purchased):
         with lock:
