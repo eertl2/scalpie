@@ -27,12 +27,12 @@ class company:
         if glv.HIDE_CHROME:
             op.add_argument("--window-size=1920,1080")
             op.add_argument('--headless')
-            op.add_argument('--no-proxy-server') 
             op.add_argument("--proxy-server='direct://'")
             op.add_argument("--proxy-bypass-list=*")
             op.add_argument('--disable-dev-shm-usage')
+            op.add_argument('blink-settings=imagesEnabled=false')
         self.driver = wd.Chrome(options=op)
-        self.driver.implicitly_wait(10)
+        self.driver.implicitly_wait(30)
         self.dbgr = dbg.dbgr()
 
         #Parse user-details.txt

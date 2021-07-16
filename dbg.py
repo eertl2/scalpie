@@ -36,10 +36,10 @@ class dbgr:
         return
 
     def crash(self, arg1):
-        cr = open("logs/" + self.fdrname + "/" + self.flename + "_source.txt", "wb")
+        cr = open("logs/" + self.fdrname + "/" + self.flename + "_pg_" + str(os.getpid()) + ".txt", "wb")
         cr.write(arg1.encode('cp1252', errors='ignore'))
         return
 
     def screenshot(self, wd):
         wd.maximize_window()
-        wd.save_screenshot("logs/" + self.fdrname + "/" + self.flename + "_screenshot.png")
+        wd.save_screenshot("logs/" + self.fdrname + "/" + self.flename + "_ss_" + str(os.getpid()) + ".png")
