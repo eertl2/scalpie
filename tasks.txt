@@ -11,7 +11,7 @@ main.py:
 bestbuy.py:
     -Stop popups (sometimes an additional webpage opens, seems to be clicking on some address element...)
         -Loop through open processes after known problem comes up and close process?
-    -Redo queue system and checks to be more robust
+    -Redo queue system and checks to be more robust (See TODO:)
     -Check for success
     -Take the attempt() method and put in into parent class maybe?
 

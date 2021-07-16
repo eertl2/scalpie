@@ -73,6 +73,7 @@ class bestbuy(company):
         #current_button.click()
 
         #Needs to wait in queue until we are able to add-to-cart if we get a popup
+        #TODO: Make this robust, current iteration would fail Bestbuy's queuing system
         inqueue = True
         seconds = 0
         while(inqueue):
@@ -91,7 +92,8 @@ class bestbuy(company):
         current_button = self.driver.find_element_by_class_name("c-button-block")
         current_button.click()
 
-        #check for next elenement before continuing
+        #check for next element before continuing
+        current_button = self.driver.find_element_by_class_name("btn-primary")
 
     def checkout(self):
         dbg.debug("---Checkout:")
@@ -101,7 +103,9 @@ class bestbuy(company):
         current_button = self.driver.find_element_by_class_name("btn-primary")
         current_button.click()
 
-        #check for next elenement before continuing
+        #check for next element before continuing
+        current_button = self.driver.find_element_by_class_name("cia-guest-content__continue") 
+
 
     def login(self):
         if glv.GUEST:
@@ -128,6 +132,9 @@ class bestbuy(company):
             dbg.debug("Clicking the login button")
             current_button = self.driver.find_element_by_class_name("cia-form__controls__submit")
             current_button.click()
+
+            #check for next element before continuing
+            current_button = self.driver.find_element_by_css_selector('input[id$=firstName]')
 
 
     def shippingInfo(self):
@@ -177,6 +184,7 @@ class bestbuy(company):
         current_button.click()
 
         #check for next elenement before continuing
+        current_button = self.driver.find_element_by_id("optimized-cc-card-number")
 
     def paymentInfo(self):
         dbg.debug("---Payment Info:")
@@ -202,6 +210,7 @@ class bestbuy(company):
         current_button.send_keys(self.cvv)
 
         #check for next element before continuing
+        current_button = self.driver.find_element_by_class_name("btn-primary")
     
     def buyItem(self):        
         #place order

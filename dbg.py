@@ -41,4 +41,5 @@ class dbgr:
         return
 
     def screenshot(self, wd):
+        wd.maximize_window()
         wd.save_screenshot("logs/" + self.fdrname + "/" + self.flename + "_screenshot.png")
