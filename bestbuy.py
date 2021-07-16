@@ -36,7 +36,8 @@ class bestbuy(company):
         except:
             dbg.debug("Program failed: " + traceback.format_exc())
             dbg.crash(self.driver.page_source)
-            dbg.screenshot(self.driver)
+            if glv.PRINT_SCREENSHOT:
+                dbg.screenshot(self.driver)
             self.driver.close
             raise
 
