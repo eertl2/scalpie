@@ -1,5 +1,6 @@
 import glv
 import os
+import chromedriver_binary
 
 from datetime import date
 from datetime import datetime
@@ -38,3 +39,6 @@ class dbgr:
         cr = open("logs/" + self.fdrname + "/" + self.flename + "_source.txt", "wb")
         cr.write(arg1.encode('cp1252', errors='ignore'))
         return
+
+    def screenshot(self, wd):
+        wd.save_screenshot("logs/" + self.fdrname + "/" + self.flename + "_screenshot.png")

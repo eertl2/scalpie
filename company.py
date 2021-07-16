@@ -24,10 +24,10 @@ class company:
     
     def __init__(self):
         op = wd.ChromeOptions()
+        op.add_argument("--window-size=1920,1080")
         if glv.HIDE_CHROME:
             op.add_argument('--headless')
             op.add_argument('--no-proxy-server') 
-            op.add_argument("--window-size=1920,1080")
             op.add_argument("--proxy-server='direct://'")
             op.add_argument("--proxy-bypass-list=*")
             op.add_argument('--disable-dev-shm-usage')
