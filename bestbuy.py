@@ -80,7 +80,7 @@ class bestbuy(company):
         seconds = 0
         while(inqueue):
             if(current_button.get_attribute("data-button-state")) != "ADD_TO_CART":
-                dbg.debug("Waiting in queue for {seconds} seconds")
+                dbg.debug(f"Waiting in queue for {seconds} seconds")
                 time.sleep(0.5)
                 seconds += 0.5
             else:
