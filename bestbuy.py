@@ -91,7 +91,15 @@ class bestbuy(company):
 
         #Clicks the go-to-cart button
         dbg.debug("Clicking 'Go To Cart'")
-        current_button = self.driver.find_element_by_class_name("c-button-block")
+        spamClick = 30
+        while spamClick > 0:
+            try:
+                current_button = self.driver.find_element_by_class_name("c-button-block")
+            except:
+                spamClick -= 1
+                dbg.debug(f"Click Failed, retrying {spamClick} more times")
+                
+
         current_button.click()
 
         #check for next element before continuing
