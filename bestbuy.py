@@ -62,7 +62,8 @@ class bestbuy(company):
         current_button = self.driver.find_element_by_class_name("add-to-cart-button")
         dbg.debug("Found add-to-cart button")
 
-        while(current_button.get_attribute("data-button-state")) == "SOLD_OUT":
+        while(current_button.get_attribute("data-button-state") == "SOLD_OUT" or \
+                current_button.get_attribute("data-button-state")) == "IN_STORE_ONLY":
             self.dbgr.debug("item is sold out, retrying in ~10")
             time.sleep(random.randint(glv.MIN_REFRESH_TIME,glv.MAX_REFRESH_TIME))
             self.driver.refresh
