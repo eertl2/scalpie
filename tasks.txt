@@ -15,6 +15,7 @@ bestbuy.py:
     -Redo queue system and checks to be more robust (See TODO:)
     -Check for success
     -Take the attempt() method and put in into parent class maybe?
+    -Check that price is target and not above (not the biggest deal atm, BB has 15 day return policy)
 
 Other:
     -Attempt to hide our webscraper (HUGE TASK but probably very important)
