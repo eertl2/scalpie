@@ -4,9 +4,12 @@ from worker import worker
 
 import glv
 import dbg
+import tasks 
 import chromedriver_binary # type: ignore
 
 dbg = dbg.dbgr()
+
+tasklist = tasks.taskslist()
 
 if __name__ == "__main__":
     m = Manager()
