@@ -32,7 +32,7 @@ class company:
             op.add_argument('--disable-dev-shm-usage')
             op.add_argument('blink-settings=imagesEnabled=false')
         self.driver = wd.Chrome(options=op)
-        self.driver.implicitly_wait(30)
+        self.driver.implicitly_wait(60)
         self.dbgr = dbg.dbgr()
 
         #Parse user-details.txt

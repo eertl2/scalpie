@@ -19,7 +19,7 @@ if __name__ == "__main__":
         results = [executor.submit(worker, "bestbuy", glv.ITEM, lock, activeP, purchased) for _ in range(2)]
 
     for f in results:
-        print(f)
+        dbg.debug(str(f))
 
     dbg.debug("Purchased:" + str(purchased.value))
 

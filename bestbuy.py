@@ -94,14 +94,14 @@ class bestbuy(company):
         current_button.click()
 
         #check for next element before continuing
-        current_button = self.driver.find_element_by_class_name("btn-primary")
+        current_button = self.driver.find_element_by_class_name("checkout-buttons__checkout")
 
     def checkout(self):
         dbg.debug("---Checkout:")
 
         #Clicks the checkout button
         dbg.debug("Clicking 'Checkout'")
-        current_button = self.driver.find_element_by_class_name("btn-primary")
+        current_button = self.driver.find_element_by_class_name("checkout-buttons__checkout")
         current_button.click()
 
         #check for next element before continuing
@@ -122,11 +122,13 @@ class bestbuy(company):
             #Enter Username 
             dbg.debug("Entering Email Address")
             current_button = self.driver.find_element_by_id("fld-e")
+            current_button.clear()
             current_button.send_keys(self.username)
 
             #Enter Password
             dbg.debug("Entering Password")
             current_button = self.driver.find_element_by_id("fld-p1")
+            current_button.clear()
             current_button.send_keys(self.password)
 
             #Clicks login
@@ -143,21 +145,25 @@ class bestbuy(company):
         #Enters Firstname
         dbg.debug("Entering Firstname")
         current_button = self.driver.find_element_by_css_selector('input[id$=firstName]')
+        current_button.clear()
         current_button.send_keys(self.firstname)
         
         #Enters Lastname
         dbg.debug("Entering Lastname")
         current_button = self.driver.find_element_by_css_selector('input[id$=lastName]')
+        current_button.clear()
         current_button.send_keys(self.lastname)
         
         #Enters Address
         dbg.debug("Entering Address")
         current_button = self.driver.find_element_by_css_selector('input[id$=street]')
+        current_button.clear()
         current_button.send_keys(self.address)
         
         #Enters City
         dbg.debug("Entering City")
         current_button = self.driver.find_element_by_css_selector('input[id$=city]')
+        current_button.clear()
         current_button.send_keys(self.city)
         
         #Enters State
@@ -168,15 +174,18 @@ class bestbuy(company):
         #Enters Zipcode
         dbg.debug("Entering Zipcode")
         current_button = self.driver.find_element_by_css_selector('input[id$=zipcode]')
+        current_button.clear()
         current_button.send_keys(self.zipcode)
 
         if glv.GUEST:
             dbg.debug("Entering Email")
             current_button = self.driver.find_element_by_id("user.emailAddress")
+            current_button.clear()
             current_button.send_keys(self.username)
 
             dbg.debug("Entering Phone Number")
             current_button = self.driver.find_element_by_id("user.phone")
+            current_button.clear()
             current_button.send_keys(self.pn)
         
         #Clicks 'Continue to Payment Information'
@@ -193,21 +202,25 @@ class bestbuy(company):
         #Enter Credit Card information
         dbg.debug("Entering Card Number")
         current_button = self.driver.find_element_by_id("optimized-cc-card-number")
+        current_button.clear()
         current_button.send_keys(self.card)
         
         #Enter Month
         dbg.debug("Entering Month")
         current_button = self.driver.find_element_by_name("expiration-month")
+        current_button.clear()
         current_button.send_keys(self.expmonth)
         
         #Enter Year
         dbg.debug("Entering Year")
         current_button = self.driver.find_element_by_name("expiration-year")
+        current_button.clear()
         current_button.send_keys(self.expyear)
         
         #Enter CCV
         dbg.debug("Entering CCV")
         current_button = self.driver.find_element_by_id("credit-card-cvv")
+        current_button.clear()
         current_button.send_keys(self.cvv)
 
         #check for next element before continuing
