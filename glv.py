@@ -4,7 +4,7 @@ PRINT_SCREENSHOT = True
 MAX_RETRYS_PER_TASK = 1
 MIN_REFRESH_TIME = 8
 MAX_REFRESH_TIME = 12
-HIDE_CHROME = True
+HIDE_CHROME = False
 GUEST = True
 
 #move into new py class

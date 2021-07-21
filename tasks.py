@@ -10,6 +10,9 @@ class Tasklist:
             lines = f.readlines()
 
         for line in lines:
+            if '#' in line:
+                continue
+            
             linestr = line.split('==')
 
             if linestr[0] == "Quanity":
