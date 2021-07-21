@@ -3,12 +3,12 @@ import glv
 import dbg
 import time
 
-dbg = dbg.dbgr()
+dbg = dbg.Dbg()
 
-class worker:
+class Worker:
     def __init__(self, place, item, lock, activeP, purchased):
-        if place == "bestbuy":
-            bb = bestbuy.bestbuy()     
+        if place == "BestBuy":
+            bb = bestbuy.BestBuy()     
             bb.purchase(item) #brings browser to the 'buy now' button, but program has to get permission first
             pcode = self.acquirePurchasePerm(lock, activeP, purchased)
             while(pcode != 1):

@@ -1,6 +1,6 @@
 from selenium import webdriver as wd
 from selenium.webdriver.common.keys import Keys
-from company import company
+from company import Company
 
 import glv
 import dbg
@@ -9,9 +9,9 @@ import traceback
 import random
 import chromedriver_binary
 
-dbg = dbg.dbgr()
+dbg = dbg.Dbg()
 
-class bestbuy(company):
+class BestBuy(Company):
     pass
     
     def purchase(self, link):
@@ -90,20 +90,31 @@ class bestbuy(company):
                 inqueue = False
 
         #Clicks the go-to-cart button
+        dbg.debug("Finding 'Go To Cart'")
+        current_button = self.driver.find_element_by_class_name("c-button-block")
+
         dbg.debug("Clicking 'Go To Cart'")
+
         spamClick = 30
+        self.driver.implicitly_wait(1)
         while spamClick > 0:
             try:
-                current_button = self.driver.find_element_by_class_name("c-button-block")
                 current_button.click()
-                #check for next element before continuing
-                current_button = self.driver.find_element_by_class_name("checkout-buttons__checkout")
+                
             except:
                 if spamClick > 0:
                     spamClick -= 1
                     dbg.debug(f"Click Failed, retrying {spamClick} more times")
                 else:
+                    self.driver.implicitly_wait(60)
                     raise
+
+        self.driver.implicitly_wait(60)
+
+        dbg.debug("checking for next element...")
+        #check for next element before continuing
+        current_button = self.driver.find_element_by_class_name("checkout-buttons__checkout")
+        dbg.debug("next element found. moving on")
 
     def checkout(self):
         dbg.debug("---Checkout:")

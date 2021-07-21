@@ -1,4 +1,4 @@
-class tasklist:
+class Tasklist:
 
     tasks = []
 
@@ -13,7 +13,7 @@ class tasklist:
             linestr = line.split('==')
 
             if linestr[0] == "Quanity":
-                curTask = task()
+                curTask = Task()
                 curTask.amt = int(linestr[1].strip('\n'))
                 count = 0
             elif linestr[0] == '\n': 
@@ -23,7 +23,7 @@ class tasklist:
                 count += 1
         self.tasks.append(curTask) #append the last task
 
-class task:
+class Task:
     amt = None
     links = []
     completed = False

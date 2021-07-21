@@ -1,11 +1,10 @@
 from selenium import webdriver as wd
 from selenium.webdriver.support import expected_conditions as EC
 import glv
-import dbg
 
 import chromedriver_binary
 
-class company:
+class Company:
     username = None #prob can remove all of these
     password = None
     firstname = None
@@ -20,7 +19,6 @@ class company:
     cvv = None
     pn = None
     driver = None
-    dbgr = None
     
     def __init__(self):
         op = wd.ChromeOptions()
@@ -33,7 +31,6 @@ class company:
             op.add_argument('blink-settings=imagesEnabled=false')
         self.driver = wd.Chrome(options=op)
         self.driver.implicitly_wait(60)
-        self.dbgr = dbg.dbgr()
 
         #Parse user-details.txt
         lines = []

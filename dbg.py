@@ -5,7 +5,7 @@ import chromedriver_binary
 from datetime import date
 from datetime import datetime
 
-class dbgr:
+class Dbg:
     f = None
     fdrname = None
     flename = None
