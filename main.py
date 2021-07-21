@@ -1,15 +1,13 @@
 from multiprocessing import Manager
 from concurrent.futures import ProcessPoolExecutor as pool
+from concurrent.futures import as_completed
 from worker import worker
 
 import glv
 import dbg
-import tasks 
 import chromedriver_binary # type: ignore
 
 dbg = dbg.dbgr()
-
-tasklist = tasks.taskslist()
 
 if __name__ == "__main__":
     m = Manager()
@@ -19,10 +17,10 @@ if __name__ == "__main__":
     purchased = m.Value('i', 0)
 
     with pool() as executor:
-        results = [executor.submit(worker, "bestbuy", glv.ITEM, lock, activeP, purchased) for _ in range(2)]
+        futures = [executor.submit(worker, "bestbuy", glv.ITEM, lock, activeP, purchased) for _ in range(2)]
 
-    for f in results:
-        dbg.debug(str(f))
+        for f in as_completed(futures):
+            dbg.debug(str(f))
 
     dbg.debug("Purchased:" + str(purchased.value))
 

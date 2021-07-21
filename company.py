@@ -6,7 +6,7 @@ import dbg
 import chromedriver_binary
 
 class company:
-    username = None
+    username = None #prob can remove all of these
     password = None
     firstname = None
     lastname = None

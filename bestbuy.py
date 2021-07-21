@@ -95,15 +95,15 @@ class bestbuy(company):
         while spamClick > 0:
             try:
                 current_button = self.driver.find_element_by_class_name("c-button-block")
+                current_button.click()
+                #check for next element before continuing
+                current_button = self.driver.find_element_by_class_name("checkout-buttons__checkout")
             except:
-                spamClick -= 1
-                dbg.debug(f"Click Failed, retrying {spamClick} more times")
-                
-
-        current_button.click()
-
-        #check for next element before continuing
-        current_button = self.driver.find_element_by_class_name("checkout-buttons__checkout")
+                if spamClick > 0:
+                    spamClick -= 1
+                    dbg.debug(f"Click Failed, retrying {spamClick} more times")
+                else:
+                    raise
 
     def checkout(self):
         dbg.debug("---Checkout:")
