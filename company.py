@@ -5,22 +5,23 @@ import glv
 import chromedriver_binary
 
 class Company:
-    username = None #prob can remove all of these
-    password = None
-    firstname = None
-    lastname = None
-    address = None
-    city = None
-    state = None
-    zipcode = None
-    card = None
-    expmonth = None
-    expyear = None
-    cvv = None
-    pn = None
-    driver = None
+    # username = None #prob can remove all of these
+    # password = None
+    # firstname = None
+    # lastname = None
+    # address = None
+    # city = None
+    # state = None
+    # zipcode = None
+    # card = None
+    # expmonth = None
+    # expyear = None
+    # cvv = None
+    # pn = None
+    # driver = None
     
-    def __init__(self):
+    def __init__(self, link):
+        #Driver arguments
         op = wd.ChromeOptions()
         if glv.HIDE_CHROME:
             op.add_argument("--window-size=1920,1080")
@@ -32,12 +33,15 @@ class Company:
         self.driver = wd.Chrome(options=op)
         self.driver.implicitly_wait(60)
 
-        #Parse user-details.txt
+        self.link = link
+
+        #Open user-details.txt
         lines = []
         userdata = []
         with open("user-details.txt", "r") as f:
             lines = f.readlines()
 
+        #Parse user-details.txt
         count = 0
         for line in lines:
             linestr = line.split('=')

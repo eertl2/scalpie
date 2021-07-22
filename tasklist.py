@@ -30,3 +30,4 @@ class Task:
     amt = None
     links = []
     completed = False
+    

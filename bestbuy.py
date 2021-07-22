@@ -1,4 +1,3 @@
-from selenium import webdriver as wd
 from selenium.webdriver.common.keys import Keys
 from company import Company
 
@@ -12,17 +11,19 @@ import chromedriver_binary
 dbg = dbg.Dbg()
 
 class BestBuy(Company):
-    pass
-    
-    def purchase(self, link):
-        self.driver.get(link)
+    def __init__(self,link):
+        super().__init__(link)
+        self.purchase()
+
+    def purchase(self):
+        self.driver.get(self.link)
         
         dbg.debug("Starting Program")
         try:
-            #add to cart
+            #Add to cart
             self.attempt(self.addToCart)
 
-            #checkout
+            #Checkout
             self.attempt(self.checkout)
 
             #Login
@@ -100,6 +101,8 @@ class BestBuy(Company):
         while spamClick > 0:
             try:
                 current_button.click()
+                dbg.debug("checking for next element...")
+                current_button = self.driver.find_element_by_class_name("checkout-buttons__checkout")
                 
             except:
                 if spamClick > 0:
@@ -111,10 +114,8 @@ class BestBuy(Company):
 
         self.driver.implicitly_wait(60)
 
-        dbg.debug("checking for next element...")
         #check for next element before continuing
         current_button = self.driver.find_element_by_class_name("checkout-buttons__checkout")
-        dbg.debug("next element found. moving on")
 
     def checkout(self):
         dbg.debug("---Checkout:")

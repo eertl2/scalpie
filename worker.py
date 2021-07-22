@@ -1,43 +1,58 @@
-import bestbuy
+from concurrent.futures import ThreadPoolExecutor as pool
+from concurrent.futures import as_completed
+
+from bestbuy import BestBuy
+from threading import Lock
 import glv
 import dbg
 import time
+import tasklist
 
 dbg = dbg.Dbg()
 
 class Worker:
+    def __init__(self, task):
+        self.activeP = 0
+        self.purchased = 0
+        self.lock = Lock()
+        self.task = task
 
-    def __init__(self, place, item, activeP, purchased):
-        if place == "BestBuy":
-            bb = bestbuy.BestBuy()     
-            bb.purchase(item) #brings browser to the 'buy now' button, but program has to get permission first
-            pcode = self.acquirePurchasePerm(activeP, purchased)
-            while(pcode != 1):
-                dbg.debug("Waiting for buying permission")
-                time.sleep(5)
-                pcode = self.acquirePurchasePerm(activeP, purchased)
-                if(pcode == -1):
-                    dbg.debug("Max quanity of product has already been bought")
-                    return
-            if(bb.buyItem()):
-                self.purchaseSuccess(activeP, purchased)
-                dbg.debug("Purchase successful.")
-            else:
-                self.purchaseFail(activeP)
-                dbg.debug("Purchase Failed.")
-            bb.close()
+        with pool() as executor:
+            futures = [executor.submit(BestBuy, link) for link in task.links]
 
-    def acquirePurchasePerm(self, activeP, purchased):
-        if(activeP.value + purchased.value) < glv.QUANITY:
-            activeP.value += 1
-            return 1
-        if(purchased.value == glv.QUANITY):
-            return -1
-        return 0
+            for buyer in as_completed(futures): #buyer is a future instance that is ready to buy an item
+                while(not self.acquirePurchasePerm()):
+                    dbg.debug("Waiting for buying permission")
+                    time.sleep(5)
 
-    def purchaseSuccess(self, activeP, purchased):
-            activeP.value -= 1
-            purchased.value += 1
+                dbg.debug("Got buying permission. Buying item")
 
-    def purchaseFail(self, activeP):
-            activeP.value -= 1
+                if buyer.buyItem():
+                    if self.checkComplete(True):
+                        self.task.completed = True
+                        return self.task
+                else:
+                    self.checkComplete(False)
+
+
+
+    def acquirePurchasePerm(self):
+        with self.lock:
+            if(self.activeP + self.purchased) < self.task.amt:
+                self.activeP += 1 
+                return True #green-light to try purchasing
+            return False
+
+
+    def checkComplete(self, success):
+        with self.lock:
+            self.activeP -= 1 #buyer completed, decrement active buyers
+            
+            if success:
+                self.purchased += 1 #item was a success
+                if(self.purchased == self.task.amt):
+                    return True
+                else:
+                    return False
+                
+
