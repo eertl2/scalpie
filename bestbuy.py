@@ -70,7 +70,8 @@ class BestBuy(Company):
             time.sleep(random.randint(glv.MIN_REFRESH_TIME,glv.MAX_REFRESH_TIME))
             self.driver.refresh
             continue
-        
+         
+        #################################### Whole section needs fixing ######################################
         #Clicks the add-cart button
         #dbg.debug("Clicking the add-to-cart button")
         #current_button.click()
@@ -80,7 +81,7 @@ class BestBuy(Company):
         inqueue = True
         seconds = 0
         while(inqueue):
-            if(current_button.get_attribute("data-button-state")) != "ADD_TO_CART":
+            if current_button.get_attribute("data-button-state") != "ADD_TO_CART":
                 dbg.debug(f"Waiting in queue for {seconds} seconds")
                 time.sleep(0.5)
                 seconds += 0.5
@@ -89,6 +90,8 @@ class BestBuy(Company):
                 current_button.click()
                 dbg.debug("Attempting to add to cart")
                 inqueue = False
+
+        #################################### Whole section needs fixing ######################################
 
         #Clicks the go-to-cart button
         dbg.debug("Finding 'Go To Cart'")
