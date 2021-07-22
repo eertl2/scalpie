@@ -1,5 +1,6 @@
 import glv
 import os
+import threading
 import chromedriver_binary
 
 from datetime import date
@@ -21,7 +22,7 @@ class Dbg:
             self.f = open("logs/" + self.fdrname + "/" + self.flename + ".txt","a")
 
     def debug(self, arg1):
-        threadid = "[PID:" + str(os.getpid()) + "] " #add thread to debug
+        threadid = "[ID:" + str(threading.get_ident()) + "] " #add thread to debug
         datestamp = datetime.now().strftime("[%H:%M:%S] ") #add date to debug
         arg1 = threadid + datestamp + arg1
 
@@ -36,10 +37,10 @@ class Dbg:
         return
 
     def crash(self, arg1):
-        cr = open("logs/" + self.fdrname + "/" + self.flename + "_pg_" + str(os.getpid()) + ".txt", "wb")
+        cr = open("logs/" + self.fdrname + "/" + self.flename + "_pg_" + str(threading.get_ident()) + ".txt", "wb")
         cr.write(arg1.encode('cp1252', errors='ignore'))
         return
 
     def screenshot(self, wd):
         wd.maximize_window()
-        wd.save_screenshot("logs/" + self.fdrname + "/" + self.flename + "_ss_" + str(os.getpid()) + ".png")
+        wd.save_screenshot("logs/" + self.fdrname + "/" + self.flename + "_ss_" + str(threading.get_ident()) + ".png")
