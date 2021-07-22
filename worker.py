@@ -27,11 +27,11 @@ class Worker:
 
                 dbg.debug("Got buying permission. Buying item")
 
-                if buyer.result().buyItem():
+                if buyer.result().buyItem(): #only one buyer can buy at a time, all other future instances are held until this goes through
                     if self.checkComplete(True):
                         self.task.completed = True
                         dbg.debug("Worker should be finished!")
-                        return
+                        executor.shutdown()
                 else:
                     self.checkComplete(False)
 
