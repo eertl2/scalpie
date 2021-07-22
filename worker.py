@@ -21,8 +21,11 @@ class Worker:
             futures = [executor.submit(BestBuy, link) for link in task.links]
 
             for buyer in as_completed(futures): #buyer is a future instance that is ready to buy an item
-                while(not self.acquirePurchasePerm()):
+                while(self.acquirePurchasePerm() != 1):
                     dbg.debug("Waiting for buying permission")
+                    if(self.acquirePurchasePerm() == -1):
+                        dbg.debug("Max quanity of product has already been bought")
+                        return
                     time.sleep(5)
 
                 dbg.debug("Got buying permission. Buying item")
@@ -39,8 +42,10 @@ class Worker:
         with self.lock:
             if(self.activeP + self.purchased) < self.task.amt:
                 self.activeP += 1 
-                return True #green-light to try purchasing
-            return False
+                return 1 #green-light to try purchasing
+            if( self.purchased == self.task.amt):
+                return -1
+            return 0
 
 
     def checkComplete(self, success):
