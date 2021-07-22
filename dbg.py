@@ -1,7 +1,7 @@
 import glv
 import os
 import threading
-import chromedriver_binary
+import chromedriver_binary # not needed?
 
 from datetime import date
 from datetime import datetime

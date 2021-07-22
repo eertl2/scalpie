@@ -1,24 +1,10 @@
 from selenium import webdriver as wd
-from selenium.webdriver.support import expected_conditions as EC
+
 import glv
 
 import chromedriver_binary
 
 class Company:
-    # username = None #prob can remove all of these
-    # password = None
-    # firstname = None
-    # lastname = None
-    # address = None
-    # city = None
-    # state = None
-    # zipcode = None
-    # card = None
-    # expmonth = None
-    # expyear = None
-    # cvv = None
-    # pn = None
-    # driver = None
     
     def __init__(self, link):
         #Driver arguments
