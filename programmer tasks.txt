@@ -10,8 +10,7 @@ main.py:
             -adding seems to take too long and crashes the program
 
 scheduler.py:
-    -BIG OOPS:
-        -Can only spawn # of workers = cores on CPU. Thus, workers need to hold multiple items and start concurrently
+    -If a task fails, fire a new worker with the failed task
 
 bestbuy.py:
     -Stop popups (sometimes an additional webpage opens, seems to be clicking on some address element...)
@@ -20,6 +19,9 @@ bestbuy.py:
     -Check for success
     -Take the attempt() method and put in into parent class maybe?
     -Check that price is target and not above (not the biggest deal atm, BB has 15 day return policy)
+
+worker.py:
+    -currently only one buyer can go through at a time, implement executor to let multiple buyers purchase at the same time
 
 Other:
     -Attempt to hide our webscraper (HUGE TASK but probably very important)
