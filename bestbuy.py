@@ -100,9 +100,10 @@ class BestBuy(Company):
         self.driver.implicitly_wait(1)
         while spamClick > 0:
             try:
-                current_button.click()
+                current_button = current_button.click()
                 dbg.debug("checking for next element...")
                 current_button = self.driver.find_element_by_class_name("checkout-buttons__checkout")
+                break # if we find the element we don't want to spamclick
                 
             except:
                 if spamClick > 0:

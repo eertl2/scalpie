@@ -27,14 +27,13 @@ class Worker:
 
                 dbg.debug("Got buying permission. Buying item")
 
-                if buyer.buyItem():
+                if buyer.result().buyItem():
                     if self.checkComplete(True):
                         self.task.completed = True
-                        return self.task
+                        dbg.debug("Worker should be finished!")
+                        return
                 else:
                     self.checkComplete(False)
-
-
 
     def acquirePurchasePerm(self):
         with self.lock:
