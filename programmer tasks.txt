@@ -24,6 +24,8 @@ worker.py:
     -currently only one buyer can go through at a time, implement executor to let multiple buyers purchase at the same time
 
 Other:
+    -Wrap into executable
+        -https://www.codeforests.com/2020/07/17/pack-python-program-into-exe-file/
     -Attempt to hide our webscraper (HUGE TASK but probably very important)
         https://pknerd.medium.com/5-strategies-to-write-unblock-able-web-scrapers-in-python-5e40c147bdaf
     -Include additonal websites
