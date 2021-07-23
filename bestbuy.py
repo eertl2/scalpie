@@ -71,27 +71,25 @@ class BestBuy(Company):
             self.driver.refresh
             continue
          
-        #################################### Whole section needs fixing ######################################
         #Clicks the add-cart button
-        #dbg.debug("Clicking the add-to-cart button")
-        #current_button.click()
+        dbg.debug("Clicking the add-to-cart button")
+        current_button.click()
 
         #Needs to wait in queue until we are able to add-to-cart if we get a popup
-        #TODO: Make this robust, current iteration would fail Bestbuy's queuing system
-        inqueue = True
-        seconds = 0
-        while(inqueue):
-            if current_button.get_attribute("data-button-state") != "ADD_TO_CART":
-                dbg.debug(f"Waiting in queue for {seconds} seconds")
-                time.sleep(0.5)
-                seconds += 0.5
-            else:
-                #Clicks the add-cart button
-                current_button.click()
-                dbg.debug("Attempting to add to cart")
-                inqueue = False
+        if current_button.get_attribute("data-button-state") != "ADD_TO_CART":
+            inqueue = True
+            seconds = 0
+            while(inqueue):
+                if current_button.get_attribute("data-button-state") != "ADD_TO_CART":
+                    dbg.debug(f"Waiting in queue for {seconds} seconds")
+                    time.sleep(0.5)
+                    seconds += 0.5
+                else:
+                    #Clicks the add-cart button
+                    current_button.click()
+                    dbg.debug("Attempting to add to cart")
+                    inqueue = False
 
-        #################################### Whole section needs fixing ######################################
 
         #Clicks the go-to-cart button
         dbg.debug("Finding 'Go To Cart'")
@@ -256,6 +254,10 @@ class BestBuy(Company):
         dbg.debug("Clicking 'Purchase'")
         current_button = self.driver.find_element_by_class_name("btn-primary")
         current_button.click()
+
+        if glv.PRINT_SCREENSHOT:
+            dbg.debug("Taking screenshot of page")
+            dbg.screenshot(self.driver)
 
         #TODO check for success/failure. return True on success, False for failure
         return True
