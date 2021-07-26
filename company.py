@@ -16,6 +16,7 @@ class Company:
             op.add_argument("--proxy-bypass-list=*")
             op.add_argument('--disable-dev-shm-usage')
             op.add_argument('blink-settings=imagesEnabled=false')
+            op.add_argument('log-level=3')
         self.driver = wd.Chrome(options=op)
         self.driver.implicitly_wait(60)
 
