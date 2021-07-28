@@ -234,15 +234,21 @@ class BestBuy(Company):
     
     def buyItem(self):        
         #place order
+
+        self.driver.implicitly_wait(300)
+
         dbg.debug("Clicking 'Purchase'")
         current_button = self.driver.find_element_by_class_name("btn-primary")
         current_button.click()
+
+        #TODO check for success/failure. return True on success, False for failure
+        current_button = self.driver.find_element_by_class_name("thank-you-enhancement__emphasis")
+        dbg.debug(current_button.get_attribute('data-track'))
 
         if glv.PRINT_SCREENSHOT:
             dbg.debug("Taking screenshot of page")
             dbg.screenshot(self.driver)
 
-        #TODO check for success/failure. return True on success, False for failure
         return True
 
     def close(self):
