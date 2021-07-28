@@ -91,30 +91,13 @@ class BestBuy(Company):
                     inqueue = False
 
 
-        #Clicks the go-to-cart button
+        #Finding the go-to-cart button
         dbg.debug("Finding 'Go To Cart'")
         current_button = self.driver.find_element_by_class_name("c-button-block")
 
+        #Clicks the go-to-cart button
         dbg.debug("Clicking 'Go To Cart'")
-
-        spamClick = 30
-        self.driver.implicitly_wait(1)
-        while spamClick > 0:
-            try:
-                current_button = current_button.click()
-                dbg.debug("Checking for next element...")
-                current_button = self.driver.find_element_by_class_name("checkout-buttons__checkout")
-                break # if we find the element we don't want to spamclick
-                
-            except:
-                if spamClick > 0:
-                    spamClick -= 1
-                    dbg.debug(f"Click Failed, retrying {spamClick} more times")
-                else:
-                    self.driver.implicitly_wait(60)
-                    raise
-
-        self.driver.implicitly_wait(60)
+        current_button.click()
 
         #check for next element before continuing
         current_button = self.driver.find_element_by_class_name("checkout-buttons__checkout")
