@@ -1,10 +1,17 @@
 from scheduler import Scheduler
 import sys
 import os
+import dbg
+import traceback
+
+dbg = dbg.Dbg()
 
 if __name__ == "__main__":
     scheduler = Scheduler()
-    scheduler.run()
+    try:
+        scheduler.run()
+    except:
+        dbg.debug("Program failed: " + traceback.format_exc())
 
 #I seen somewhere to stick this in the main code for pyinstaller, no idea if it does anything or not
 def resource_path(relative_path):
