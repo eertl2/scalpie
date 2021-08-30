@@ -4,6 +4,7 @@ from worker import Worker
 
 import tasklist
 import dbg
+import traceback
 import glv
 import chromedriver_binary # type: ignore
 
@@ -19,5 +20,8 @@ class Scheduler:
             futures = [executor.submit(Worker, task) for task in taskList.tasks]
 
             for worker in as_completed(futures):
-                dbg.debug(str(worker))
-                dbg.debug("Task completed:" + str(worker.result().task.completed))
+                try:
+                    dbg.debug(str(worker))
+                    dbg.debug("Task completed:" + str(worker.result().task.completed))
+                except:
+                    dbg.debug("Program failed: " + traceback.format_exc())
