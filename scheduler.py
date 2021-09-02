@@ -10,18 +10,18 @@ import chromedriver_binary # type: ignore
 
 dbg = dbg.Dbg()
 
-
 class Scheduler:
 
     def run(self):
         taskList = tasklist.Tasklist()
 
-        with pool() as executor:
-            futures = [executor.submit(Worker, task) for task in taskList.tasks]
+        with pool(max_workers=glv.MAX_THREADS) as executor:
+            for task in taskList.tasks:
+                futures = [executor.submit(Worker, task) for _ in task.links]
 
-            for worker in as_completed(futures):
-                try:
-                    dbg.debug(str(worker))
-                    dbg.debug("Task completed:" + str(worker.result().task.completed))
-                except:
-                    dbg.debug("Program failed: " + traceback.format_exc())
+                for worker in as_completed(futures):
+                    try:
+                        dbg.debug(str(worker))
+                        dbg.debug("Task completed (item bought):" + str(worker.result().link))
+                    except:
+                        dbg.debug("Program failed: " + traceback.format_exc())

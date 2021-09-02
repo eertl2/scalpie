@@ -26,20 +26,17 @@ class Dbg:
         datestamp = datetime.now().strftime("[%H:%M:%S] ") #add date to debug
         arg1 = threadid + datestamp + arg1
 
-        if glv.PRINT_TO_LOGS:
+        if glv.PRINT_TO_CONSOLE:
             print(arg1)
         if glv.PRINT_TO_LOGS:
             self.log(arg1)
-        return
 
     def log(self, arg1):
         self.f.write(arg1 + "\n")
-        return
 
     def crash(self, arg1):
         cr = open("logs/" + self.fdrname + "/" + self.flename + "_pg_" + str(threading.get_ident()) + ".txt", "wb")
         cr.write(arg1.encode('cp1252', errors='ignore'))
-        return
 
     def screenshot(self, wd):
         wd.maximize_window()

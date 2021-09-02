@@ -29,5 +29,6 @@ class Tasklist:
 class Task:
     amt = None
     links = []
+    running = False
     completed = False
     

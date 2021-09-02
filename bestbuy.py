@@ -234,19 +234,14 @@ class BestBuy(Company):
     def buyItem(self):        
         #place order
 
-        self.driver.implicitly_wait(300)
+        self.driver.implicitly_wait(180) 
 
         dbg.debug("Clicking 'Purchase'")
         current_button = self.driver.find_element_by_class_name("btn-primary")
         current_button.click()
 
         current_button = self.driver.find_element_by_class_name("thank-you-enhancement__emphasis")
-        dbg.debug(current_button.get_attribute('data-track'))
-
-        if glv.PRINT_SCREENSHOT:
-            dbg.debug("Taking screenshot of page")
-            dbg.screenshot(self.driver)
-
+        dbg.debug(current_button.get_attribute('data-track')) #TODO: if line fails, item is bought but raises error
         return True
 
     def close(self):

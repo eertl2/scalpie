@@ -1,70 +1,37 @@
-from concurrent.futures import ThreadPoolExecutor as pool
-from concurrent.futures import as_completed
 from bestbuy import BestBuy
-from threading import Lock
 
 import dbg
-import time
 
 dbg = dbg.Dbg()
 
 class Worker:
-    def __init__(self, task):
-        self.activeP = 0
-        self.purchased = 0
-        self.lock = Lock()
-        self.task = task
+    def __init__(self, platform, link, scheduler):
+        self.platform = platform
+        self.scheduler = scheduler
+        self.link = self.link
+        self.company = self.refresh(platform, link)
+        self.finished = False #only True if the item is bought
+        
+        self.run()
 
-        with pool() as executor:
-            futures = [executor.submit(BestBuy, link) for link in task.links]
+    def run(self):
+        while not self.finished:
+            try:
+                self.company.purchase()
+                #get lock from scheduler
+                if self.company.buyItem():
+                    self.company.screenshot()
+                    self.finished = True
+            except:
+                dbg.debug("worker failed, retrying...")
+                self.company = self.refresh(self.platform, self.link)
 
-            for buyer in as_completed(futures): #buyer is a future instance that is ready to buy an item
-                while(self.acquirePurchasePerm() != 1):
-                    dbg.debug("Waiting for buying permission")
-                    if(self.acquirePurchasePerm() == -1):
-                        dbg.debug("Max quanity of product has already been bought")
-                        return
-                    time.sleep(5)
-
-                dbg.debug("Got buying permission. Buying item")
-
-                purchaser = executor.submit(buyer.result().buyItem())
-
-                for purchased in as_completed(purchaser):
-                    if purchased:
-                        if self.checkComplete(True):
-                            self.task.completed = True
-                            dbg.debug("Worker should be finished!")
-                    else:
-                        self.checkComplete(False)
-
-                # if buyer.result().buyItem(): #only one buyer can buy at a time, all other future instances are held until this goes through
-                #     if self.checkComplete(True):
-                #         self.task.completed = True
-                #         dbg.debug("Worker should be finished!")
-                #         executor.shutdown()
-                # else:
-                #     self.checkComplete(False)
-
-    def acquirePurchasePerm(self):
-        with self.lock:
-            if(self.activeP + self.purchased) < self.task.amt:
-                self.activeP += 1 
-                return 1 #green-light to try purchasing
-            if( self.purchased == self.task.amt):
-                return -1
-            return 0
-
-
-    def checkComplete(self, success):
-        with self.lock:
-            self.activeP -= 1 #buyer completed, decrement active buyers
-            
-            if success:
-                self.purchased += 1 #item was a success
-                if(self.purchased == self.task.amt):
-                    return True
-                else:
-                    return False
-                
-
+    def refresh(self, platform, link):
+        if platform == "bestbuy":
+            return BestBuy(link)
+        else:
+            raise platformDoesntExist(platform)
+    
+class platformDoesntExist(Exception):
+    def __init__(self, platform):
+        super().__init__("platform [" + platform + "] does not exist")

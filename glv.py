@@ -2,6 +2,7 @@
 PRINT_TO_CONSOLE = True
 PRINT_TO_LOGS = True
 PRINT_SCREENSHOT = True
+MAX_THREADS = 2
 MAX_RETRYS_PER_TASK = 1
 MIN_REFRESH_TIME = 3
 MAX_REFRESH_TIME = 5
@@ -27,6 +28,8 @@ try:
                 PRINT_TO_LOGS = str2bool(split[1])
             if split[0] == "PRINT_SCREENSHOT":
                 PRINT_SCREENSHOT = str2bool(split[1])
+            if split[0] == "MAX_THREADS":
+                MAX_THREADS = int(split[1])
             if split[0] == "MAX_RETRYS_PER_TASK":
                 MAX_RETRYS_PER_TASK = int(split[1])
             if split[0] == "MIN_REFRESH_TIME":
@@ -37,8 +40,8 @@ try:
                 HIDE_CHROME = str2bool(split[1])
             if split[0] == "GUEST":
                 GUEST = str2bool(split[1])
-
         f.close()
+        
 except FileNotFoundError:
     print("glv.txt cannot be found. Continuing with default glv settings.")
     

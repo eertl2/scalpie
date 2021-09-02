@@ -1,8 +1,11 @@
 from selenium import webdriver as wd
 
 import glv
+import dbg
 
 import chromedriver_binary
+
+dbg = dbg.Dbg
 
 class Company:
     
@@ -49,3 +52,7 @@ class Company:
         self.expyear = userdata[10]
         self.cvv = userdata[11]
         self.pn = userdata[12]
+    
+    def screenshot(self):
+        dbg.debug("Taking a screenshot")
+        dbg.screenshot(self.driver)
