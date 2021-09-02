@@ -1,5 +1,6 @@
-class Tasklist:
+from task import Task
 
+class Tasklist:
     tasks = []
 
     def __init__(self):
@@ -26,9 +27,5 @@ class Tasklist:
                 count += 1
         self.tasks.append(curTask) #append the last task
 
-class Task:
-    amt = None
-    links = []
-    running = False
-    completed = False
+
     

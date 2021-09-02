@@ -6,6 +6,7 @@ import tasklist
 import dbg
 import traceback
 import glv
+import multiprocessing
 import chromedriver_binary # type: ignore
 
 dbg = dbg.Dbg()
@@ -15,13 +16,17 @@ class Scheduler:
     def run(self):
         taskList = tasklist.Tasklist()
 
-        with pool(max_workers=glv.MAX_THREADS) as executor:
-            for task in taskList.tasks:
-                futures = [executor.submit(Worker, task) for _ in task.links]
+        m = multiprocessing.Manager()
+        for task in taskList.tasks:
+            task.lock = m.Lock()
+
+            with pool(max_workers=glv.MAX_THREADS) as executor:
+                futures = [executor.submit(Worker, "bestbuy", link, task) for link in task.links]
 
                 for worker in as_completed(futures):
                     try:
                         dbg.debug(str(worker))
-                        dbg.debug("Task completed (item bought):" + str(worker.result().link))
+                        dbg.debug("Task completed (item bought):" + str(worker.result()))
                     except:
                         dbg.debug("Program failed: " + traceback.format_exc())
+    

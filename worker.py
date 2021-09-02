@@ -1,16 +1,18 @@
 from bestbuy import BestBuy
+from task import Task
 
 import dbg
+import time
 
 dbg = dbg.Dbg()
 
 class Worker:
-    def __init__(self, platform, link, scheduler):
+    def __init__(self, platform, link, task):
         self.platform = platform
-        self.scheduler = scheduler
+        self.task = task
         self.link = self.link
         self.company = self.refresh(platform, link)
-        self.finished = False #only True if the item is bought
+        self.finished = False
         
         self.run()
 
@@ -18,7 +20,15 @@ class Worker:
         while not self.finished:
             try:
                 self.company.purchase()
-                #get lock from scheduler
+
+                while(Task.acquirePurchasePerm(self.task) != 1):
+                    dbg.debug("Waiting for buying permission")
+                    if(Task.acquirePurchasePerm(self.task) == -1):
+                        dbg.debug("Max quanity of product has already been bought")
+                        self.finished = True
+                        return
+                    time.sleep(5)
+                    
                 if self.company.buyItem():
                     self.company.screenshot()
                     self.finished = True
