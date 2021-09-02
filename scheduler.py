@@ -17,10 +17,9 @@ class Scheduler:
         taskList = tasklist.Tasklist()
 
         m = multiprocessing.Manager()
-        for task in taskList.tasks:
-            task.lock = m.Lock()
-
-            with pool(max_workers=glv.MAX_THREADS) as executor:
+        with pool(max_workers=glv.MAX_THREADS) as executor:
+            for task in taskList.tasks:
+                task.lock = m.Lock()
                 futures = [executor.submit(Worker, "bestbuy", link, task) for link in task.links]
 
                 for worker in as_completed(futures):

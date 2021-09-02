@@ -10,7 +10,7 @@ class Worker:
     def __init__(self, platform, link, task):
         self.platform = platform
         self.task = task
-        self.link = self.link
+        self.link = link
         self.company = self.refresh(platform, link)
         self.finished = False
         
