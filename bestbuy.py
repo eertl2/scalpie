@@ -13,7 +13,7 @@ dbg = dbg.Dbg()
 class BestBuy(Company):
     def __init__(self,link):
         super().__init__(link)
-        self.purchase()
+        #self.purchase()
 
     def purchase(self):
         self.driver.get(self.link)
@@ -240,7 +240,6 @@ class BestBuy(Company):
         current_button = self.driver.find_element_by_class_name("btn-primary")
         current_button.click()
 
-        #TODO check for success/failure. return True on success, False for failure
         current_button = self.driver.find_element_by_class_name("thank-you-enhancement__emphasis")
         dbg.debug(current_button.get_attribute('data-track'))
 

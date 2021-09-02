@@ -2,10 +2,6 @@ Bugs:
     -Bestbuy randomly selects people to do surveys, this crashes the code
     -Sometimes fails to click on element (hasn't happened in awhile)
 
-main.py:
-    -Check for multiple items
-        -Check for multiple items, fire off a bestbuy.py object right before it goes in-stock (we know this because it says 'please wait...' on the item instead of 'Sold Out')
-
 scheduler.py:
     -If a task fails, fire a new worker with the failed task
 
@@ -16,9 +12,6 @@ bestbuy.py:
     -Take the attempt() method and put in into parent class maybe?
     -Check that price is target and not above (not the biggest deal atm, BB has 15 day return policy)
     -Spam click seems to bug out in headless mode but program still continues
-
-worker.py:
-    -currently only one buyer can go through at a time, implement executor to let multiple buyers purchase at the same time
 
 Other:
     -Wrap into executable
