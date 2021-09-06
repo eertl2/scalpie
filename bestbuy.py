@@ -64,11 +64,19 @@ class BestBuy(Company):
         current_button = self.driver.find_element_by_class_name("add-to-cart-button")
         dbg.debug("Found add-to-cart button")
 
+        seconds = 0
         while(current_button.get_attribute("data-button-state") == "SOLD_OUT" or current_button.get_attribute("data-button-state") == "IN_STORE_ONLY"):
-            dbg.debug("item is sold out, retrying in ~10")
-            time.sleep(random.randint(glv.MIN_REFRESH_TIME,glv.MAX_REFRESH_TIME))
+            if seconds == 0:
+                dbg.debug(f"item is sold out, retrying in {glv.MIN_REFRESH_TIME} to {glv.MAX_REFRESH_TIME}")
+                dbg.debug(f"No more messages will be printed until the item is not sold out or in store.")
+            
+            wait = random.randint(glv.MIN_REFRESH_TIME,glv.MAX_REFRESH_TIME)
+            time.sleep(wait)
+            seconds += wait
             self.driver.refresh
             continue
+
+        dbg.debug(f"Item not sold out or in store. Waited {seconds} seconds")
          
         #Clicks the add-cart button
         dbg.debug("Clicking the add-to-cart button")
