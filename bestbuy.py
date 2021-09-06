@@ -92,7 +92,7 @@ class BestBuy(Company):
 
         #Finding the go-to-cart button
         dbg.debug("Finding 'Go To Cart'")
-        current_button = self.driver.find_element_by_class_name("c-button-block")
+        current_button = self.driver.find_element_by_class_name("go-to-cart-button")
 
         #Clicks the go-to-cart button
         dbg.debug("Clicking 'Go To Cart'")

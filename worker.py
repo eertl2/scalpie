@@ -21,6 +21,8 @@ class Worker:
             try:
                 self.company.purchase()
 
+                dbg.debug("Aquiring Purchase Perm")
+                
                 while(Task.acquirePurchasePerm(self.task) != 1):
                     dbg.debug("Waiting for buying permission")
                     if(Task.acquirePurchasePerm(self.task) == -1):
@@ -28,6 +30,8 @@ class Worker:
                         self.finished = True
                         return
                     time.sleep(5)
+                
+                dbg.debug("Aquired Purchase Perm. Buying item...")
                     
                 if self.company.buyItem():
                     self.company.screenshot()
