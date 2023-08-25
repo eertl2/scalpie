@@ -14,11 +14,19 @@ class Worker:
         self.purchased = 0
         self.lock = Lock()
         self.task = task
+        self.run(task)
 
+    def run(self, task):
         with pool() as executor:
             futures = [executor.submit(BestBuy, link) for link in task.links]
 
-            for buyer in as_completed(futures): #buyer is a future instance that is ready to buy an item
+            for buyer in futures: #buyer is a future instance that is ready to buy an item
+                try:
+                    buyer.result()
+                except:
+                    dbg.debug("Buyer" + str(futures.index(buyer)) + "failed")
+                    continue
+
                 while(self.acquirePurchasePerm() != 1):
                     dbg.debug("Waiting for buying permission")
                     if(self.acquirePurchasePerm() == -1):
@@ -37,14 +45,6 @@ class Worker:
                             dbg.debug("Worker should be finished!")
                     else:
                         self.checkComplete(False)
-
-                # if buyer.result().buyItem(): #only one buyer can buy at a time, all other future instances are held until this goes through
-                #     if self.checkComplete(True):
-                #         self.task.completed = True
-                #         dbg.debug("Worker should be finished!")
-                #         executor.shutdown()
-                # else:
-                #     self.checkComplete(False)
 
     def acquirePurchasePerm(self):
         with self.lock:

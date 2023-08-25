@@ -10,7 +10,6 @@ import chromedriver_binary # type: ignore
 
 dbg = dbg.Dbg()
 
-
 class Scheduler:
 
     def run(self):

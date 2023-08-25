@@ -235,7 +235,7 @@ class BestBuy(Company):
     def buyItem(self):        
         #place order
 
-        self.driver.implicitly_wait(300)
+        #self.driver.implicitly_wait(180)
 
         dbg.debug("Clicking 'Purchase'")
         current_button = self.driver.find_element_by_class_name("btn-primary")
